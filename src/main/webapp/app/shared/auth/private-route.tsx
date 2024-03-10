@@ -51,6 +51,23 @@ export const PrivateRoute = ({ children, hasAnyAuthorities = [], ...rest }: IOwn
   );
 };
 
+export const PrivateComponent = ({ children, hasAnyAuthorities = [], ...rest }: IOwnProps) => {
+  const account = useAppSelector(state => state.authentication.account);
+  const isAuthorized = hasAnyAuthority(account.authorities, hasAnyAuthorities);
+  const adminRole = hasAnyAuthority(account.authorities, ['ROLE_ADMIN']);
+
+  if (adminRole) {
+    return <React.Fragment>{children}</React.Fragment>;
+  }
+
+  if (isAuthorized) {
+    return <React.Fragment>{children}</React.Fragment>;
+  }
+
+  return <React.Fragment></React.Fragment>;
+};
+
+
 export const hasAnyAuthority = (authorities: string[], hasAnyAuthorities: string[]) => {
   if (authorities && authorities.length !== 0) {
     if (hasAnyAuthorities.length === 0) {

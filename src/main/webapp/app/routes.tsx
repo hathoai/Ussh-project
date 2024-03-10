@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React, {useEffect, useLayoutEffect} from 'react';
+import {Route, useLocation, useNavigate, useParams} from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 import Login from 'app/modules/login/login';
@@ -14,6 +14,8 @@ import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
+import {useAppSelector} from "app/config/store";
+import UserManagement from "app/modules/administration/user-management";
 
 const loading = <div>loading ...</div>;
 
@@ -26,11 +28,33 @@ const Admin = Loadable({
   loader: () => import(/* webpackChunkName: "administration" */ 'app/modules/administration'),
   loading: () => loading,
 });
+interface Props {
+  isBackToHome: boolean;
+}
 const AppRoutes = () => {
+  const { id } = useParams();
+  const account = useAppSelector(state => state.authentication.account);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useLayoutEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [location.pathname]);
+
+  // useEffect(() => {
+  //   if (isBackToHome) {
+  //     // console.log("back to home");
+  //     navigate("./");
+  //   }
+  // }, [isBackToHome]);
+
   return (
-    <div className="view-routes">
+    <div style={{ fontFamily: 'Quicksand !important' }}>
       <ErrorBoundaryRoutes>
-        <Route index element={<Home />} />
+        <Route index element={<Admin />} />
         <Route path="login" element={<Login />} />
         <Route path="logout" element={<Logout />} />
         <Route path="account">
@@ -50,9 +74,9 @@ const AppRoutes = () => {
           </Route>
         </Route>
         <Route
-          path="admin/*"
+          path="/*"
           element={
-            <PrivateRoute hasAnyAuthorities={[AUTHORITIES.ADMIN]}>
+            <PrivateRoute hasAnyAuthorities={[AUTHORITIES.ADMIN,AUTHORITIES.USER]}>
               <Admin />
             </PrivateRoute>
           }
@@ -60,7 +84,7 @@ const AppRoutes = () => {
         <Route
           path="*"
           element={
-            <PrivateRoute hasAnyAuthorities={[AUTHORITIES.USER]}>
+            <PrivateRoute hasAnyAuthorities={[AUTHORITIES.USER,AUTHORITIES.ADMIN]}>
               <EntitiesRoutes />
             </PrivateRoute>
           }
