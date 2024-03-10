@@ -21,13 +21,13 @@ import tech.jhipster.config.JHipsterConstants;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
-public class JhipsterSampleApplicationApp {
+public class Ussh {
 
-    private static final Logger log = LoggerFactory.getLogger(JhipsterSampleApplicationApp.class);
+    private static final Logger log = LoggerFactory.getLogger(Ussh.class);
 
     private final Environment env;
 
-    public JhipsterSampleApplicationApp(Environment env) {
+    public Ussh(Environment env) {
         this.env = env;
     }
 
@@ -65,7 +65,7 @@ public class JhipsterSampleApplicationApp {
      * @param args the command line arguments.
      */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(JhipsterSampleApplicationApp.class);
+        SpringApplication app = new SpringApplication(Ussh.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
