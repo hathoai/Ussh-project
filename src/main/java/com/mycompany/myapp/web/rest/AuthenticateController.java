@@ -1,10 +1,8 @@
 package com.mycompany.myapp.web.rest;
 
-import static com.mycompany.myapp.security.SecurityUtils.AUTHORITIES_KEY;
-import static com.mycompany.myapp.security.SecurityUtils.JWT_ALGORITHM;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mycompany.myapp.web.rest.vm.LoginVM;
+import com.mycompany.myapp.security.SecurityUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.time.Instant;
@@ -94,10 +92,10 @@ public class AuthenticateController {
             .issuedAt(now)
             .expiresAt(validity)
             .subject(authentication.getName())
-            .claim(AUTHORITIES_KEY, authorities)
+            .claim(SecurityUtils.AUTHORITIES_KEY, authorities)
             .build();
 
-        JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();
+        JwsHeader jwsHeader = JwsHeader.with(SecurityUtils.JWT_ALGORITHM).build();
         return this.jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, claims)).getTokenValue();
     }
 

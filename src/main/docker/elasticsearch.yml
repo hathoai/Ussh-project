@@ -1,5 +1,5 @@
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
-name: jhipstersampleapplication
+name: ussh
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.10.4
@@ -15,16 +15,15 @@ services:
       - 'discovery.type=single-node'
       - 'xpack.security.enabled=false'
     healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:9200/_cluster/health?wait_for_status=green&timeout=10s']
+      test: [ 'CMD', 'curl', '-f', 'http://localhost:9200/_cluster/health?wait_for_status=green&timeout=10s' ]
       interval: 5s
       timeout: 10s
       retries: 10
   kibana:
-    container_name: kibana
-    image: docker.elastic.co/kibana/kibana:7.15.2
-    environment:
-      - 'ES_JAVA_OPTS=-Xms256m -Xmx256m'
-      - 'discovery.type=single-node'
-      - 'xpack.security.enabled=false'
+    image: docker.elastic.co/kibana/kibana:8.10.4
     ports:
-      - 5601:5601
+      - 127.0.0.1:5601:5601
+    environment:
+      ELASTICSEARCH_URL: 127.0.0.1:9200:9200
+    depends_on:
+      - elasticsearch

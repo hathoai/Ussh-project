@@ -6,6 +6,7 @@ import com.mycompany.myapp.service.dto.UserDTO;
 import java.util.*;
 import java.util.Collections;
 import java.util.stream.StreamSupport;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -73,7 +74,7 @@ public class PublicUserResource {
      * @param query the query to search.
      * @return the result of the search.
      */
-    @GetMapping("/users/_search/{query}")
+    @GetMapping("/users/search/{query}")
     public List<UserDTO> search(@PathVariable("query") String query) {
         return StreamSupport.stream(userSearchRepository.search(query).spliterator(), false).map(UserDTO::new).toList();
     }

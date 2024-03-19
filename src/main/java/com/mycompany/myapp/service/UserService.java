@@ -1,11 +1,11 @@
 package com.mycompany.myapp.service;
 
-import com.mycompany.myapp.config.Constants;
-import com.mycompany.myapp.domain.Authority;
-import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.AuthorityRepository;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.repository.search.UserSearchRepository;
+import com.mycompany.myapp.config.Constants;
+import com.mycompany.myapp.domain.Authority;
+import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.security.AuthoritiesConstants;
 import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.dto.AdminUserDTO;
@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;

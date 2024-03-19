@@ -62,7 +62,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                   paddingLeft: '32px',
                   color: '#ffffFf',
                   fontSize: '20px',
-                  backgroundColor: '#20394D',
+                  // backgroundColor: '#20394D',
                   height: '92px !important',
                   display: 'flex',
                   alignItems: 'center',

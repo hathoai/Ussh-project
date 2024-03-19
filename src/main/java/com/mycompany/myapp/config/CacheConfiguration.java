@@ -1,6 +1,10 @@
 package com.mycompany.myapp.config;
 
 import java.time.Duration;
+
+import com.mycompany.myapp.domain.Authority;
+import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.repository.UserRepository;
 import org.ehcache.config.builders.*;
 import org.ehcache.jsr107.Eh107Configuration;
 import org.hibernate.cache.jcache.ConfigSettings;
@@ -43,11 +47,11 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            createCache(cm, com.mycompany.myapp.repository.UserRepository.USERS_BY_LOGIN_CACHE);
-            createCache(cm, com.mycompany.myapp.repository.UserRepository.USERS_BY_EMAIL_CACHE);
-            createCache(cm, com.mycompany.myapp.domain.User.class.getName());
-            createCache(cm, com.mycompany.myapp.domain.Authority.class.getName());
-            createCache(cm, com.mycompany.myapp.domain.User.class.getName() + ".authorities");
+            createCache(cm, UserRepository.USERS_BY_LOGIN_CACHE);
+            createCache(cm, UserRepository.USERS_BY_EMAIL_CACHE);
+            createCache(cm, User.class.getName());
+            createCache(cm, Authority.class.getName());
+            createCache(cm, User.class.getName() + ".authorities");
             // jhipster-needle-ehcache-add-entry
         };
     }

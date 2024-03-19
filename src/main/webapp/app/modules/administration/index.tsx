@@ -8,11 +8,12 @@ import UserManagement from './user-management';
 import PrivateRoute from 'app/shared/auth/private-route';
 import {AdminLayout} from "app/shared/layout/adminLayout";
 import {AUTHORITIES} from "app/config/constants";
+import {DashboardManager} from "app/modules/dash-board/Dasboard-manager";
 
 const AdministrationRoutes = () => (
   <AdminLayout>
     <ErrorBoundaryRoutes>
-      {/* <Route path={ADMIN_DASHBOARD_MANAGEMENT_PATH} element={<DashboardRoutes />} /> */}
+      {/* <Route path={"/dashboard"} element={<DashboardManager/>} /> */}
       <Route
         path={"/admin/users"}
         element={
@@ -21,7 +22,14 @@ const AdministrationRoutes = () => (
           </PrivateRoute>
         }
       />
-
+      <Route
+        path={"/admin/dashboard"}
+        element={
+          <PrivateRoute hasAnyAuthorities={[AUTHORITIES.ADMIN]}>
+            <DashboardManager />
+          </PrivateRoute>
+        }
+      />
       {/*
       <Route path="*" element={<Navigate to="/" />} />
       {/* <Route path="*" element={<Navigate to="../" />} />*/}

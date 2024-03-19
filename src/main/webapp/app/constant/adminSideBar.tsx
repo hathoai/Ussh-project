@@ -32,8 +32,8 @@ export const ADMIN_SIDE_BAR = [
     text: ['home'],
     header: 'Home Management',
     root: {
-      link: "/dashboard",
-      // role: [AUTHORITIES.ADMIN],
+      link: "/admin/dashboard",
+      role: [AUTHORITIES.ADMIN],
     },
     children: [
       // {
@@ -49,7 +49,7 @@ export const ADMIN_SIDE_BAR = [
   },
   {
     id: 2,
-    title: 'Users Management',
+    title: 'Profile Management',
     icon: <GroupIcon />,
     text: ['user', 'role'],
 

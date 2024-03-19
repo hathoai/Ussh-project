@@ -2,6 +2,7 @@ package com.mycompany.myapp.web.rest.errors;
 
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
 
+import com.mycompany.myapp.service.UsernameAlreadyUsedException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.util.Arrays;
@@ -82,7 +83,7 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
 
     private ProblemDetailWithCause getProblemDetailWithCause(Throwable ex) {
         if (
-            ex instanceof com.mycompany.myapp.service.UsernameAlreadyUsedException
+            ex instanceof UsernameAlreadyUsedException
         ) return (ProblemDetailWithCause) new LoginAlreadyUsedException().getBody();
         if (
             ex instanceof com.mycompany.myapp.service.EmailAlreadyUsedException
