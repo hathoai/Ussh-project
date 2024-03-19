@@ -30,7 +30,7 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long  id;
 
     @NotNull
     @Pattern(regexp = Constants.LOGIN_REGEX)
